@@ -4,6 +4,8 @@ namespace App\Tests;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use App\Service\PlayerService;
+use App\Entity\Board;
+
 
 class PlayerServiceTest extends WebTestCase
 {
@@ -24,5 +26,13 @@ class PlayerServiceTest extends WebTestCase
         $p = $this->serv->registerPlayer('Ana');
         $this->assertEquals('Ana', $p->getName(), 'right name');
         $this->assertGreaterThan(0, $p->getId(), 'positive id');
+    }
+
+    public function testGameVictory() 
+    {
+        $board = new Board();
+        $p = $this->serv->gameVictory($board);
+
+
     }
 }
