@@ -34,13 +34,42 @@ class PlayerServiceTest extends WebTestCase
 
     public function testGameVictory() 
     {
-        $board = new Board();
-        $board->setPositions([Board::NOUGHT,Board::NOUGHT,Board::CROSS,
-                                Board::CROSS,Board::CROSS,Board::NOUGHT,
-                                Board::CROSS,Board::CROSS,Board::NOUGHT]);
-        $p = $this->serv2->gameVictory($board);
+        $array = [Board::NOUGHT,Board::NOUGHT,Board::CROSS,
+        Board::CROSS,Board::CROSS,Board::NOUGHT,
+        Board::CROSS,Board::CROSS,Board::NOUGHT];
 
+        $board = new Board();
+        $board->setPositions($array);
+        $p = $this->serv2->gameVictory($board);
         $this->assertEquals([2,4,6], $p);
+
+
+        $rand = rand(0,2);
+
+        // Check that rows match
+        $array[$rand*3] = Board::NOUGHT;
+        $array[$rand*3+1] = Board::NOUGHT;
+        $array[$rand*3+2] = Board::NOUGHT;
+        $board->setPositions($array);
+        $p = $this->serv2->gameVictory($board);
+        $this->assertEquals([$rand*3,$rand*3+1,$rand*3+2], $p);
+
+        
+        /*
+        $array2 = $array;
+
+        $auxArray = [0,3,6];
+        $rand = $auxArray[rand(0,2)];
+
+
+        // Check that columns match
+        $array2[$rand] = Board::NOUGHT;
+        $array2[$rand+3] = Board::NOUGHT;
+        $array2[$rand+6] = Board::NOUGHT;
+        $board->setPositions($array2);
+        $p = $this->serv2->gameVictory($board);
+        $this->assertEquals([$rand,$rand+3,$rand+6], $p);
+        */
 
 
     }
